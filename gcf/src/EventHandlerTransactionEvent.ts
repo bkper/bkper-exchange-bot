@@ -1,6 +1,6 @@
 import { Account, AccountType, Book, Transaction } from "bkper";
-import { getBaseCode, getRatesEndpointConfigForDate, extractAmountDescription_ } from "./BotService";
-import { EXC_CODE_PROP, EXC_RATE_PROP, EXC_LOG_PROP, EXC_AMOUNT_PROP, EXC_DATE_HIST_PROP, EXC_RATE_HIST_PROP } from "./constants";
+import { getBaseCode } from "./BotService";
+import { EXC_CODE_PROP, EXC_RATE_PROP, EXC_LOG_PROP, EXC_AMOUNT_PROP } from "./constants";
 import { EventHandlerTransaction } from "./EventHandlerTransaction";
 
 export abstract class EventHandlerTransactionEvent extends EventHandlerTransaction {
@@ -76,19 +76,6 @@ export abstract class EventHandlerTransactionEvent extends EventHandlerTransacti
       const excLogEntries = await this.buildExcLog(baseBook, connectedBook, transaction, amountDescription);
       if (excLogEntries.length > 0) {
         newTransaction.setProperty(EXC_LOG_PROP, JSON.stringify(excLogEntries));
-      }
-    }
-
-    // exc_date_hist prop: if present, fetch and record historical exchange rate for reference
-    const excDateHistProp = transaction.properties[EXC_DATE_HIST_PROP];
-    if (excDateHistProp) {
-      // historical rates endpoint
-      const histRatesEndpointConfig = getRatesEndpointConfigForDate(baseBook, excDateHistProp);
-      // historical amount description
-      const amountDescriptionHist = await extractAmountDescription_(baseBook, connectedBook, baseCode, connectedCode, transaction, histRatesEndpointConfig.url);
-      if (amountDescriptionHist.excBaseRate) {
-        // set property
-        newTransaction.setProperty(EXC_RATE_HIST_PROP, amountDescriptionHist.excBaseRate.toString());
       }
     }
 

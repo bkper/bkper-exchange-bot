@@ -8,30 +8,6 @@ interface RatesEndpointConfig {
   url: string
 }
 
-export function getRatesEndpointConfigForDate(book: Book, date: string): RatesEndpointConfig {
-
-  // Parse date
-  const parsedDate = book.parseDate(date);
-  // Check if parsed date is valid
-  if (!Number.isNaN(new Date(parsedDate).getTime())) {
-    date = parsedDate.toISOString().substring(0, 10);
-  } else {
-    const dateFormat = book.getDatePattern();
-    throw `Invalid date. Use appropriated date in ${dateFormat} format, instead of ${date}.`;
-  }
-
-  // Get endpoint from book property
-  let ratesUrl = book.getProperty(EXC_RATES_URL_PROP, 'exchange_rates_url');
-  // Default endpoint from openexchangerates
-  if (ratesUrl == null || ratesUrl.trim() == '') {
-    ratesUrl = "https://openexchangerates.org/api/historical/${date}.json?show_alternative=true&app_id=" + process.env.open_exchange_rates_app_id;
-  }
-  // Replace date
-  ratesUrl = ratesUrl.replace("${date}", date);
-
-  return { url: ratesUrl };
-}
-
 export function getRatesEndpointConfig(book: Book, transaction: bkper.Transaction): RatesEndpointConfig {
   //Read from properties
   let ratesUrl = book.getProperty(EXC_RATES_URL_PROP, 'exchange_rates_url');
