@@ -1,6 +1,6 @@
 {
   "name": "exchange-bot-gcf",
-  "version": "1.5.11",
+  "version": "1.5.12",
   "license": "MIT",
   "main": "index.js",
   "projectId": "bkper-cc-bot",
