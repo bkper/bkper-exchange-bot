@@ -48,16 +48,16 @@ export function getRatesEndpointConfig(book: Book, transaction: bkper.Transactio
   }
 }
 
-export async function getConnectedBooks(book: Book): Promise<Set<Book>> {
+export async function getConnectedBooks(book: Book): Promise<Array<Book>> {
   if (book.getProperties() == null) {
-    return new Set<Book>();
+    return new Array<Book>();
   }
-  let books = new Set<Book>();
+  let books = new Array<Book>();
 
   //deprecated
   for (const key in book.getProperties()) {
     if ((key.startsWith('exc')) && key.endsWith('_book')) {
-      books.add(await Bkper.getBook(book.getProperties()[key]));
+      books.push(await Bkper.getBook(book.getProperties()[key]));
     }
   }
 
@@ -67,7 +67,7 @@ export async function getConnectedBooks(book: Book): Promise<Set<Book>> {
     var bookIds = exc_books.split(/[ ,]+/);
     for (var bookId of bookIds) {
       if (bookId != null && bookId.trim().length > 10) {
-        books.add(await Bkper.getBook(bookId));
+        books.push(await Bkper.getBook(bookId));
       }
     }
   }
@@ -76,7 +76,7 @@ export async function getConnectedBooks(book: Book): Promise<Set<Book>> {
   if (collectionBooks) {
     for (const b of collectionBooks) {
       if (getBaseCode(b) != null && getBaseCode(b) != 'TEMPLATE') {
-        books.add(b);
+        books.push(b);
       }
     }
   }

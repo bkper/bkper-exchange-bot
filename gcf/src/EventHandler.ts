@@ -37,30 +37,39 @@ export abstract class EventHandler {
       await getRates(ratesEndpointConfig.url)
     }
 
-    let responsesPromises: Promise<string>[] = [];
-    let connectedBooks = await getConnectedBooks(baseBook);
+    let allConnectedBooks = await getConnectedBooks(baseBook);
 
+    let result: string[] = [];
 
-    for (const connectedBook of connectedBooks) {
-      if (connectedBook.getId() == baseBook.getId()) {
-        continue;
-      }
-      let connectedCode = getBaseCode(connectedBook);
-      if (connectedCode != null && connectedCode != '') {
-        let response = this.processObject(baseBook, connectedBook, event);
-        if (response) {
-          responsesPromises.push(response);
+    const chunkSize = 5;
+    for (let i = 0; i < allConnectedBooks.length; i += chunkSize) {
+      const connectedBooks = allConnectedBooks.slice(i, i + chunkSize);
+
+      let responsesPromises: Promise<string>[] = [];
+
+      for (const connectedBook of connectedBooks) {
+        if (connectedBook.getId() == baseBook.getId()) {
+          continue;
         }
-      }      
-    }
+        let connectedCode = getBaseCode(connectedBook);
+        if (connectedCode != null && connectedCode != "") {
+          let response = this.processObject(baseBook, connectedBook, event);
+          if (response) {
+            responsesPromises.push(response);
+          }
+        }
+      }
 
-    if (responsesPromises.length == 0) {
-      console.timeEnd(logtag)
-      return false;
+      if (responsesPromises.length > 0) {
+        let partialResult = await Promise.all(responsesPromises);
+        partialResult = partialResult.filter(
+          (r) => r != null && r.trim() != ""
+        );
+        if (partialResult.length > 0) {
+          result = result.concat(partialResult);
+        }
+      }
     }
-
-    let result = await Promise.all(responsesPromises);
-    result = result.filter(r => r != null && r.trim() != '');
 
     console.timeEnd(logtag)
 
