@@ -41,7 +41,7 @@ export abstract class EventHandler {
 
     let result: string[] = [];
 
-    const chunkSize = 5;
+    const chunkSize = 10;
     for (let i = 0; i < allConnectedBooks.length; i += chunkSize) {
       const connectedBooks = allConnectedBooks.slice(i, i + chunkSize);
 
