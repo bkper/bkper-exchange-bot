@@ -1,6 +1,6 @@
 import { Account, Book, Transaction } from "bkper";
 import { getBaseCode } from "./BotService";
-import { EXC_CODE_PROP, EXC_RATE_PROP, EXC_LOG_PROP } from "./constants";
+import { EXC_CODE_PROP, EXC_RATE_PROP, EXC_LOG_PROP, EXC_AMOUNT_PROP } from "./constants";
 import { AmountDescription, EventHandlerTransaction } from "./EventHandlerTransaction";
 import { EventHandlerTransactionEvent } from './EventHandlerTransactionEvent';
 
@@ -97,6 +97,8 @@ export class EventHandlerTransactionUpdated extends EventHandlerTransactionEvent
     if (amountDescription.excBaseRate) {
       connectedTransaction.setProperty(EXC_RATE_PROP, amountDescription.excBaseRate.toString())
     }
+
+    connectedTransaction.setProperty(EXC_AMOUNT_PROP, transaction.amount);
 
     if (amountDescription.rates) {
       const excLogEntries = await this.buildExcLog(baseBook, connectedBook, transaction, amountDescription);
