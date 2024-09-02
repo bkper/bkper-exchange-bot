@@ -12,6 +12,11 @@ interface AmountDescription {
 
 namespace BotService {
 
+  export function isHistorical(book: Bkper.Book): boolean {
+    const excHistoricalProp = book.getProperty(EXC_HISTORICAL_PROP);
+    return excHistoricalProp && excHistoricalProp.trim().toLowerCase() === 'true' ? true : false;
+  }
+
   export function getRatesEndpointConfig(book: Bkper.Book, date: string, agent: string): RatesEndpointConfig {
     //Read from properties
     let ratesUrl = book.getProperty(EXC_RATES_URL_PROP, 'exchange_rates_url');

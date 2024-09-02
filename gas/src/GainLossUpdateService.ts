@@ -14,15 +14,15 @@ namespace GainLossUpdateService {
         let baseCode = BotService.getBaseCode(book);
 
         let bookClosingDate = book.getClosingDate();
-        let excHistoricalProp = book.getProperty(EXC_HISTORICAL);
+        let isHistorical = BotService.isHistorical(book);
 
         let date = BotService.parseDateParam(dateParam);
 
-        let query = getQuery(book, date, bookClosingDate, excHistoricalProp);
+        let query = getQuery(book, date, bookClosingDate, isHistorical);
         let histQuery = getHistQuery(book, date);
 
         let bookBalancesReport = book.getBalancesReport(query);
-        let bookHistBalancesReport = !excHistoricalProp ? book.getBalancesReport(histQuery) : null;
+        let bookHistBalancesReport = isHistorical ? null : book.getBalancesReport(histQuery);
 
         let result: { [key: string]: Bkper.Amount } = {};
 
@@ -33,14 +33,14 @@ namespace GainLossUpdateService {
             let transactions: Bkper.Transaction[] = [];
 
             let connectedBookBalancesReport = connectedBook.getBalancesReport(query);
-            let connectedBookHistBalancesReport = (!excHistoricalProp && hasHistAccount(accounts)) ? connectedBook.getBalancesReport(histQuery) : null;
+            let connectedBookHistBalancesReport = (!isHistorical && hasHistAccount(accounts)) ? connectedBook.getBalancesReport(histQuery) : null;
 
             for (const account of accounts) {
                 let connectedAccount = connectedBook.getAccount(account.getName());
                 if (connectedAccount != null) {
                     
                     // Skip Hist accounts if book is historical
-                    if (excHistoricalProp && isHistAccount(connectedAccount)) {
+                    if (isHistorical && isHistAccount(connectedAccount)) {
                         continue;
                     }
 
@@ -275,10 +275,10 @@ namespace GainLossUpdateService {
         return maxOccurrencesType;
     }
 
-    function getQuery(book: Bkper.Book, date: Date, bookClosingDate: string, historicalProp: string): string {
+    function getQuery(book: Bkper.Book, date: Date, bookClosingDate: string, isHistorical: boolean): string {
         const dateAfter = new Date(date.getTime());
         dateAfter.setDate(dateAfter.getDate() + 1);
-        if (!historicalProp && bookClosingDate) {
+        if (!isHistorical && bookClosingDate) {
             let openingDate: Date;
             try {
                 const closingDate = new Date();
