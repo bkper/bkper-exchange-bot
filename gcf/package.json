@@ -21,13 +21,8 @@
     "functions:authorize": "gcloud alpha functions add-iam-policy-binding $npm_package_functionName --member=serviceAccount:bkper-hrd@appspot.gserviceaccount.com --role=roles/cloudfunctions.invoker --project $npm_package_projectId",
     "functions:open": "open \"https://console.cloud.google.com/functions/details/us-central1/$npm_package_functionName?organizationId=305881217394&project=$npm_package_projectId&tab=logs\"",
     "open": "yarn functions:open",
-    "patch": "yarn version --patch --no-git-tag-version",
-    "minor": "yarn version --minor --no-git-tag-version",
-    "major": "yarn version --major --no-git-tag-version",
-    "preversion": "yarn build",
-    "deploy": "yarn build && yarn --cwd dist/ deploy:dist",
-    "deploy:dist": "gcloud functions deploy $npm_package_functionName --runtime nodejs18 --trigger-http --entry-point doPost --max-instances 15 --memory 256MB --timeout 360 --project $npm_package_projectId",
-    "postversion": "git add -A && git commit -m \"gcf-$npm_package_version\" && git push && yarn deploy && echo \"Successfully released version $npm_package_version!\""
+    "deploy": "bun run build && yarn --cwd dist/ deploy:dist",
+    "deploy:dist": "gcloud functions deploy $npm_package_functionName --runtime nodejs18 --trigger-http --entry-point doPost --max-instances 15 --memory 256MB --timeout 360 --project $npm_package_projectId"
   },
   "devDependencies": {
     "@bkper/bkper-api-types": "^5.9.0",
