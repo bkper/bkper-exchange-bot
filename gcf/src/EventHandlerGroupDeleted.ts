@@ -1,5 +1,5 @@
-import { Book, Group } from "bkper";
-import { EventHandlerGroup } from "./EventHandlerGroup";
+import { Book, Group } from "bkper-js";
+import { EventHandlerGroup } from "./EventHandlerGroup.js";
 
 export class EventHandlerGroupDeleted extends EventHandlerGroup {
   protected async connectedGroupNotFound(baseBook: Book, connectedBook: Book, group: bkper.Group): Promise<string> {

@@ -1,7 +1,7 @@
-import { Book } from "bkper";
-import { getBaseCode } from "./BotService";
-import { EXC_ON_CHECK_PROP, EXC_RATES_CACHE_PROP, EXC_RATES_URL_PROP, EXC_AGGREGATE } from "./constants";
-import { EventHandler } from "./EventHandler";
+import { Book } from "bkper-js";
+import { getBaseCode } from "./BotService.js";
+import { EXC_ON_CHECK_PROP, EXC_RATES_CACHE_PROP, EXC_RATES_URL_PROP, EXC_AGGREGATE } from "./constants.js";
+import { EventHandler } from "./EventHandler.js";
 
 export class EventHandlerBookUpdated extends EventHandler {
 

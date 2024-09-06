@@ -1,5 +1,5 @@
-import { Book, Transaction } from "bkper";
-import { EventHandlerTransaction } from "./EventHandlerTransaction";
+import { Book, Transaction } from "bkper-js";
+import { EventHandlerTransaction } from "./EventHandlerTransaction.js";
 
 export class EventHandlerTransactionRestored extends EventHandlerTransaction {
 

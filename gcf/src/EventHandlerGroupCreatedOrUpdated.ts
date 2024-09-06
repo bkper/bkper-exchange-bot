@@ -1,6 +1,6 @@
-import { Book, Group } from "bkper";
-import { CHILD_BOOK_ID_PROP } from "./constants";
-import { EventHandlerGroup } from "./EventHandlerGroup";
+import { Book, Group } from "bkper-js";
+import { CHILD_BOOK_ID_PROP } from "./constants.js";
+import { EventHandlerGroup } from "./EventHandlerGroup.js";
 
 export class EventHandlerGroupCreatedOrUpdated extends EventHandlerGroup {
   protected async connectedGroupNotFound(baseBook: Book, connectedBook: Book, baseGroup: bkper.Group): Promise<string> {

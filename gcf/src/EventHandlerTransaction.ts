@@ -1,9 +1,9 @@
-import { Amount, Book, Transaction } from "bkper";
-import { extractAmountDescription_, getBaseCode, getRatesEndpointConfig, hasBaseBookInCollection, isBaseBook, getAccountExcCode, match } from "./BotService";
-import { EXC_AMOUNT_PROP } from "./constants";
-import { EventHandler } from "./EventHandler";
-import { ExchangeRates } from "./ExchangeRates";
-import { convertBase } from "./exchange-service";
+import { Amount, Book, Transaction } from "bkper-js";
+import { extractAmountDescription_, getBaseCode, getRatesEndpointConfig, hasBaseBookInCollection, isBaseBook, getAccountExcCode, match } from "./BotService.js";
+import { EXC_AMOUNT_PROP } from "./constants.js";
+import { EventHandler } from "./EventHandler.js";
+import { ExchangeRates } from "./ExchangeRates.js";
+import { convertBase } from "./exchange-service.js";
 
 export interface AmountDescription {
     amount: Amount;

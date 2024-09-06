@@ -3,6 +3,7 @@
   "version": "1.5.15",
   "license": "MIT",
   "main": "index.js",
+  "type": "module",
   "projectId": "bkper-cc-bot",
   "functionName": "prod",
   "scripts": {
@@ -14,7 +15,7 @@
     "gcp-build": "yarn install --frozen-lockfile",
     "dev": "run-p dev:*",
     "dev:compile": "tsc -w --incremental",
-    "dev:webhook": "node webhook.js",
+    "dev:webhook": "node webhook",
     "dev:nodemon": "nodemon --watch ./dist/ --exec bun run functions:dev",
     "functions:dev": "functions-framework --source=dist/ --target=doPost --port=3003",
     "functions:enable": "gcloud services enable cloudfunctions.googleapis.com --project $npm_package_projectId && gcloud services enable cloudbuild.googleapis.com --project $npm_package_projectId",
@@ -36,7 +37,8 @@
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^2.0.0",
-    "bkper": "^2.7.0",
+    "bkper": "^3.2.1",
+    "bkper-js": "^1.2.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-http-context": "^1.2.4",

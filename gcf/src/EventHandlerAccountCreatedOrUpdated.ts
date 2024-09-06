@@ -1,5 +1,5 @@
-import { Account, AccountType, Book } from "bkper";
-import { EventHandlerAccount } from "./EventHandlerAccount";
+import { Account, AccountType, Book } from "bkper-js";
+import { EventHandlerAccount } from "./EventHandlerAccount.js";
 
 export class EventHandlerAccountCreatedOrUpdated extends EventHandlerAccount {
 

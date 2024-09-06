@@ -1,9 +1,9 @@
-import { ExchangeRates } from "./ExchangeRates";
+import { ExchangeRates } from "./ExchangeRates.js";
 import { GaxiosError, request } from 'gaxios';
-import https = require('https');
+import https from 'https';
 
-import NodeCache = require("node-cache");
-import { Amount } from "bkper";
+import NodeCache from "node-cache";
+import { Amount } from "bkper-js";
 const cache = new NodeCache();
 
 interface ConvertedAmount {

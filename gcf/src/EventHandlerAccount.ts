@@ -1,6 +1,6 @@
-import { Account, Book } from "bkper";
-import { getBaseCode } from "./BotService";
-import { EventHandler } from "./EventHandler";
+import { Account, Book } from "bkper-js";
+import { getBaseCode } from "./BotService.js";
+import { EventHandler } from "./EventHandler.js";
 
 export abstract class EventHandlerAccount extends EventHandler {
 

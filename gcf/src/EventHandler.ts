@@ -1,7 +1,7 @@
-import { Bkper, Book } from "bkper";
-import { getBaseCode, getConnectedBooks, getRatesEndpointConfig, isBaseBook } from "./BotService";
-import {  EXC_ON_CHECK_PROP, EXC_CODE_PROP } from "./constants";
-import { getRates } from "./exchange-service";
+import { Bkper, Book } from "bkper-js";
+import { getBaseCode, getConnectedBooks, getRatesEndpointConfig, isBaseBook } from "./BotService.js";
+import {  EXC_ON_CHECK_PROP, EXC_CODE_PROP } from "./constants.js";
+import { getRates } from "./exchange-service.js";
 
 export abstract class EventHandler {
 

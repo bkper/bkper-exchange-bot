@@ -1,8 +1,8 @@
-import { Account, Book, Transaction } from "bkper";
-import { getBaseCode } from "./BotService";
-import { EXC_CODE_PROP, EXC_RATE_PROP, EXC_LOG_PROP, EXC_AMOUNT_PROP } from "./constants";
-import { AmountDescription, EventHandlerTransaction } from "./EventHandlerTransaction";
-import { EventHandlerTransactionEvent } from './EventHandlerTransactionEvent';
+import { Account, Book, Transaction } from "bkper-js";
+import { getBaseCode } from "./BotService.js";
+import { EXC_CODE_PROP, EXC_RATE_PROP, EXC_LOG_PROP, EXC_AMOUNT_PROP } from "./constants.js";
+import { AmountDescription, EventHandlerTransaction } from "./EventHandlerTransaction.js";
+import { EventHandlerTransactionEvent } from './EventHandlerTransactionEvent.js';
 
 export class EventHandlerTransactionUpdated extends EventHandlerTransactionEvent {
 

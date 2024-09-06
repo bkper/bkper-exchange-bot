@@ -1,5 +1,5 @@
-import { Account, Book } from "bkper";
-import { EventHandlerAccount } from "./EventHandlerAccount";
+import { Account, Book } from "bkper-js";
+import { EventHandlerAccount } from "./EventHandlerAccount.js";
 
 export class EventHandlerAccountDeleted extends EventHandlerAccount {
   protected async connectedAccountNotFound(baseBook: Book, connectedBook: Book, account: bkper.Account): Promise<string> {
