@@ -8,6 +8,7 @@
   "functionName": "prod",
   "scripts": {
     "clean": "gts clean",
+    "upgrade:js": "bun update bkper-js --latest",
     "upgrade:app": "bun update bkper --latest",
     "upgrade:api": "bun update @bkper/bkper-api-types --latest",
     "prebuild": "bun install --yarn",
