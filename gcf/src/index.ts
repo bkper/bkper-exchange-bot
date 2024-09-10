@@ -7,7 +7,6 @@ import httpContext from 'express-http-context';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
-import { getOAuthToken } from 'bkper';
 
 import { EventHandlerTransactionChecked } from './EventHandlerTransactionEventChecked.js';
 import { EventHandlerTransactionUpdated } from './EventHandlerTransactionUpdated.js';
@@ -40,7 +39,7 @@ function init(req: Request, res: Response) {
   httpContext.set(oauthTokenHeader, req.headers[oauthTokenHeader]);
 
   Bkper.setConfig({
-    oauthTokenProvider: async () => httpContext.get(oauthTokenHeader) || getOAuthToken(),
+    oauthTokenProvider: async () => httpContext.get(oauthTokenHeader) || import('bkper').then(bkper => bkper.getOAuthToken()),
     apiKeyProvider: async () => process.env.BKPER_API_KEY || req.headers['bkper-api-key'] as string
   })
 
