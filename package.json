@@ -4,13 +4,13 @@
   "license": "MIT",
   "scripts": {
     "bkper:sync": "bkper app -u",
-    "clasp:login": "clasp login && yarn clasp:store",
+    "clasp:login": "clasp login && bun run clasp:store",
     "clasp:store": "cp ~/.clasprc.json ~/.clasprc-bkper.json",
     "clasp:activate": "cp ~/.clasprc-bkper.json ~/.clasprc.json"
   },
   "devDependencies": {
     "@google/clasp": "^2.4.2",
-    "bkper": "^2.5.9",
+    "bkper": "^3.3.2",
     "npm-run-all": "^4.1.5"
   }
 }
