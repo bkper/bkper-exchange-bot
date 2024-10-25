@@ -5,7 +5,7 @@ import { EventHandlerGroup } from "./EventHandlerGroup.js";
 export class EventHandlerGroupCreatedOrUpdated extends EventHandlerGroup {
   protected async connectedGroupNotFound(baseBook: Book, connectedBook: Book, baseGroup: bkper.Group): Promise<string> {
     let parentGroup = baseGroup.parent ? await connectedBook.getGroup(baseGroup.parent.name) : null;
-    let connectedGroup = await connectedBook.newGroup()
+    let connectedGroup = await new Group(connectedBook)
     .setName(baseGroup.name)
     .setParent(parentGroup)
     .setHidden(baseGroup.hidden)

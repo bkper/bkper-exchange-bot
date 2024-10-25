@@ -8,7 +8,7 @@ export class EventHandlerAccountCreatedOrUpdated extends EventHandlerAccount {
     const timeTagWrite = `AccountCreatedOrUpdated not found write. [Book ${connectedBook.getName()}] [Owner ${connectedBook.getOwnerName()}] ${Math.random()}`
     console.time(timeTagWrite)
 
-    let connectedAccount = connectedBook.newAccount();
+    let connectedAccount = new Account(connectedBook);
     this.syncAccounts(baseBook, connectedBook, baseAccount, connectedAccount);
     await connectedAccount.create();
     let bookAnchor = super.buildBookAnchor(connectedBook);
