@@ -1,4 +1,4 @@
-import { Account, AccountType, Book, Transaction } from "bkper-js";
+import { Account, AccountType, Book, Transaction, Group } from "bkper-js";
 import { getBaseCode } from "./BotService.js";
 import { EXC_CODE_PROP, EXC_RATE_PROP, EXC_LOG_PROP, EXC_AMOUNT_PROP } from "./constants.js";
 import { EventHandlerTransaction } from "./EventHandlerTransaction.js";
@@ -47,7 +47,7 @@ export abstract class EventHandlerTransactionEvent extends EventHandlerTransacti
 
     const creditDebitAccounts = await Promise.all([connectedBook.getAccount(baseCreditAccount.name), connectedBook.getAccount(baseDebitAccount.name)])
 
-    let newTransaction = connectedBook.newTransaction()
+    let newTransaction = new Transaction(connectedBook)
       .setDate(transaction.date)
       .setProperties(transaction.properties)
       .setAmount(amountDescription.amount)
@@ -94,7 +94,7 @@ export abstract class EventHandlerTransactionEvent extends EventHandlerTransacti
   }
 
   protected async createAccount(connectedBook: Book, baseAccount: bkper.Account): Promise<Account> {
-    let newConnectedAccount = connectedBook.newAccount()
+    let newConnectedAccount = new Account(connectedBook)
       .setName(baseAccount.name)
       .setType(baseAccount.type as AccountType)
       .setProperties(baseAccount.properties);
@@ -103,7 +103,8 @@ export abstract class EventHandlerTransactionEvent extends EventHandlerTransacti
       for (const baseGroup of baseGroups) {
         let connectedGroup = await connectedBook.getGroup(baseGroup.name);
         if (connectedGroup == null) {
-          connectedGroup = await connectedBook.newGroup().setName(baseGroup.name).setProperties(baseGroup.properties).create();
+          let newGroup = new Group(connectedBook);
+          connectedGroup = await newGroup.setName(baseGroup.name).setProperties(baseGroup.properties).create();
         }
         await newConnectedAccount.addGroup(connectedGroup);
       }
