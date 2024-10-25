@@ -15,7 +15,7 @@ menuUrlDev: https://script.google.com/a/bkper.com/macros/s/AKfycbwg42np5A-niYBI7
 menuText: Exchange Bot
 menuPopupWidth: 1000
 menuPopupHeight: 500
-webhookUrl: https://us-central1-bkper-cc-bot.cloudfunctions.net/prod
+webhookUrl: https://us-central1-bkper-cc-bot.cloudfunctions.net/prodGen2
 apiVersion: v5
 events:
   - TRANSACTION_POSTED
