@@ -106,7 +106,7 @@ export abstract class EventHandlerTransactionEvent extends EventHandlerTransacti
           let newGroup = new Group(connectedBook);
           connectedGroup = await newGroup.setName(baseGroup.name).setProperties(baseGroup.properties).create();
         }
-        await newConnectedAccount.addGroup(connectedGroup);
+        newConnectedAccount.addGroup(connectedGroup);
       }
     }
     await newConnectedAccount.create();

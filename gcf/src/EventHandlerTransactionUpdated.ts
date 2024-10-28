@@ -34,7 +34,7 @@ export class EventHandlerTransactionUpdated extends EventHandlerTransactionEvent
     let connectedCreditAccount = await connectedBook.getAccount(baseCreditAccount.getName());
     if (connectedCreditAccount == null) {
       try {
-        connectedCreditAccount = await connectedBook.newAccount().setName(baseCreditAccount.getName()).create();
+        connectedCreditAccount = await new Account(connectedBook).setName(baseCreditAccount.getName()).create();
       } catch (err) {
         //OK
       }
@@ -42,7 +42,7 @@ export class EventHandlerTransactionUpdated extends EventHandlerTransactionEvent
     let connectedDebitAccount = await connectedBook.getAccount(baseDebitAccount.getName());
     if (connectedDebitAccount == null) {
       try {
-        connectedDebitAccount = await connectedBook.newAccount().setName(baseDebitAccount.getName()).create();
+        connectedDebitAccount = await new Account(connectedBook).setName(baseDebitAccount.getName()).create();
       } catch (err) {
         //OK
       }

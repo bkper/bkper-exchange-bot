@@ -40,9 +40,8 @@ export abstract class EventHandlerTransaction extends EventHandler {
 
         if (isBaseBook(connectedBook) || !hasBaseBookInCollection(baseBook) || match(baseBook, connectedCode, transaction)) {
             if (connectedCode != null && connectedCode != '') {
-                let iterator = connectedBook.getTransactions(this.getTransactionQuery(transaction));
-                if (await iterator.hasNext()) {
-                    let connectedTransaction = await iterator.next();
+                let connectedTransaction = (await connectedBook.listTransactions(this.getTransactionQuery(transaction))).getFirst();
+                if (connectedTransaction) {
                     ret = this.connectedTransactionFound(baseBook, connectedBook, transaction, connectedTransaction);
                 } else {
                     ret = this.connectedTransactionNotFound(baseBook, connectedBook, transaction)
