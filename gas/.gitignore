@@ -1,0 +1,9 @@
+.DS_Store
+node_modules
+yarn-error.log
+.history
+dist/
+tsconfig.tsbuildinfo
+.env.yaml
+yarn.lock
+bun.lockb
