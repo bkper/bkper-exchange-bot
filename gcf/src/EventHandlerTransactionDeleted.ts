@@ -20,7 +20,7 @@ export class EventHandlerTransactionDeleted extends EventHandlerTransaction {
         if (connectedTransaction.isChecked()) {
             await connectedTransaction.uncheck();
         }
-        await connectedTransaction.remove();
+        await connectedTransaction.trash();
 
         let amountFormatted = connectedBook.formatValue(connectedTransaction.getAmount())
 
