@@ -50,11 +50,14 @@ namespace GainLossUpdateService {
                     }
 
                     // test code to track error that is beeing logged in the last days
-                    if (exchangeRates.rates[connectedCode] == '0,964785335262904') {
-                        console.log(`Error: Invalid amount: 0,964785335262904 --->   BOOK: ${connectedBook.getName()}   //  ACCOUNT: ${connectedAccount.getName()}   //   DATE: ${date}   //   EXC_CODE: ${connectedCode}`);
+                    let expectedBalance: ConvertedAmount;
+                    try {
+                        expectedBalance = ExchangeService.convert(connectedAccountBalanceOnDate, connectedCode, baseCode, exchangeRates);
+                    } catch (error) {
+                        console.log(`Error: 'Invalid amount error' --->   BOOK: ${connectedBook.getName()}   //  ACCOUNT: ${connectedAccount.getName()}   //   DATE: ${date}   //   EXC_CODE: ${connectedCode}`);
+                        throw error;
                     }
-
-                    let expectedBalance = ExchangeService.convert(connectedAccountBalanceOnDate, connectedCode, baseCode, exchangeRates);
+                    
                     let accountBalanceOnDate = (isHistAccount(connectedAccount) && bookHistBalancesReport !== null) ? getAccountBalance(bookHistBalancesReport, account) : getAccountBalance(bookBalancesReport, account);
                     if (!accountBalanceOnDate) {
                         continue;
