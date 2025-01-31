@@ -86,9 +86,8 @@ export async function getRates(ratesEndpointUrl: string): Promise<ExchangeRates>
         }
       })
       rates = req.data as ExchangeRates;
-    } catch (err) {
-      //@ts-ignore
-      rates = err?.response?.data || null;
+    } catch (err: any) {
+      throw err?.response?.data || err;
     }
 
     if (rates == null) {
@@ -107,10 +106,9 @@ export async function getRates(ratesEndpointUrl: string): Promise<ExchangeRates>
         `;
     }
 
-
     cache.set(cacheKey, rates, 1800);
 
-    console.timeEnd(`getRates ${random}`)
+    console.timeEnd(`getRates ${random}`);
 
     return rates;
 
