@@ -81,7 +81,7 @@ export async function getRates(ratesEndpointUrl: string): Promise<ExchangeRates>
         retryConfig: {
           statusCodesToRetry: [[100, 199], [401, 429], [500, 599]],
           retry: 5,
-          onRetryAttempt: (err: GaxiosError) => { console.log(`${err.response.data.description} - Retrying... `) },
+          onRetryAttempt: (err: GaxiosError) => { console.log(`${err.response?.data?.description} - Retrying... `) },
           retryDelay: 100
         }
       })
