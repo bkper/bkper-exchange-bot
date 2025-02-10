@@ -1,5 +1,5 @@
 import { Book } from "bkper-js";
-import { getBaseCode, getConnectedBooks, getRatesEndpointConfig } from "./BotService.js";
+import { getBaseCode, getConnectedBooks, getRatesEndpointConfig, hasBaseBookInCollection, isBaseBook } from "./BotService.js";
 import { EXC_ON_CHECK_PROP, EXC_CODE_PROP } from "./constants.js";
 import { getRates } from "./exchange-service.js";
 
@@ -43,11 +43,7 @@ export abstract class EventHandler {
 
     // Load and cache rates prior to pararllel run
     if (event.type == 'TRANSACTION_CHECKED' || event.type == 'TRANSACTION_POSTED' || event.type == 'TRANSACTION_UPDATED') {
-      let operation = event.data.object as bkper.TransactionOperation;
-      let transaction = operation.transaction;
-      const ratesEndpointConfig = getRatesEndpointConfig(eventBook, transaction);
-      // Call to put rates on cache
-      await getRates(ratesEndpointConfig.url); 
+      await this.preloadRatesIfNeeded(eventBook, event, allConnectedBooks);
     }
 
     let result: string[] = [];
@@ -93,6 +89,30 @@ export abstract class EventHandler {
 
   protected buildBookAnchor(book: Book) {
     return `<a href='https://app.bkper.com/b/#transactions:bookId=${book.getId()}'>${book.getName()}</a>`;
+  }
+
+  private async preloadRatesIfNeeded(eventBook: Book, event: bkper.Event, connectedBooks: Book[]): Promise<void> {
+    // No need to load rates if event book is the only base book in the collection
+    if (this.isTheOnlyBaseBookInCollection(eventBook, connectedBooks)) {
+      return;
+    }
+    let operation = event.data.object as bkper.TransactionOperation;
+    let transaction = operation.transaction;
+    const ratesEndpointConfig = getRatesEndpointConfig(eventBook, transaction);
+    await getRates(ratesEndpointConfig.url); // Call to put rates on cache
+  }
+
+  private isTheOnlyBaseBookInCollection(eventBook: Book, connectedBooks: Book[]): boolean {
+    if (hasBaseBookInCollection(eventBook)) {
+      const baseBooks = connectedBooks.filter(b => isBaseBook(b));
+      if (baseBooks.length == 1) {
+        const baseBook = baseBooks[0];
+        if (baseBook && baseBook.getId() == eventBook.getId()) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
 }
