@@ -1,6 +1,6 @@
 id: exchange-bot
 name: Exchange Agent
-description: Automatically convert transaction amounts between books using historical exchange rates, enabling multi-currency accounting and consolidated financial reporting.
+description: Automatically convert transaction amounts between books using historical exchange rates, tracking gains and losses due to currency fluctuations, enabling multi-currency accounting and consolidated financial reporting.
 logoUrl: https://storage.googleapis.com/bkper-public/logos/agents/exchange-agent-light.svg
 logoUrlDark: https://storage.googleapis.com/bkper-public/logos/agents/exchange-agent-dark.svg
 website: https://bkper.com/apps/exchange-bot
