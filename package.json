@@ -1,12 +1,17 @@
 {
-  "name": "exchange-bot",
-  "version": "2.6.10",
+  "name": "exchange-agent",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "bkper:sync": "bkper app -u",
     "clasp:login": "clasp login && bun run clasp:store",
     "clasp:store": "cp ~/.clasprc.json ~/.clasprc-bkper.json",
-    "clasp:activate": "cp ~/.clasprc-bkper.json ~/.clasprc.json"
+    "clasp:activate": "cp ~/.clasprc-bkper.json ~/.clasprc.json",
+    "upgrade:bkper": "bun update bkper --latest",
+    "clean": "bun run-p clean:*",
+    "clean:menu": "bun --cwd menu clean",
+    "dev": "bun run-p dev:*",
+    "dev:menu": "bun --cwd menu dev"
   },
   "devDependencies": {
     "@google/clasp": "^2.4.2",
