@@ -13,7 +13,7 @@
     "clean:events": "bun --cwd events clean",
     "dev": "bun run-p dev:*",
     "dev:menu": "bun --cwd menu dev",
-    "dev:events": "bun --cwd gcf dev"
+    "dev:events": "bun --cwd events dev"
   },
   "devDependencies": {
     "@google/clasp": "^2.4.2",
