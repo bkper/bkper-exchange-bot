@@ -10,8 +10,10 @@
     "upgrade:bkper": "bun update bkper --latest",
     "clean": "bun run-p clean:*",
     "clean:menu": "bun --cwd menu clean",
+    "clean:events": "bun --cwd events clean",
     "dev": "bun run-p dev:*",
-    "dev:menu": "bun --cwd menu dev"
+    "dev:menu": "bun --cwd menu dev",
+    "dev:events": "bun --cwd gcf dev"
   },
   "devDependencies": {
     "@google/clasp": "^2.4.2",
