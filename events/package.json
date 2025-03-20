@@ -1,5 +1,5 @@
 {
-  "name": "exchange-agent-events",
+  "name": "exchange-bot-events",
   "version": "1.5.15",
   "license": "MIT",
   "main": "index.js",

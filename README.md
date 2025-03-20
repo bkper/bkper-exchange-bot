@@ -1,35 +1,35 @@
-The Bkper Exchange Agent keeps balance values, in different Bkper Books with other currencies, synchronized.
+The Bkper Exchange Bot keeps balance values, in different Bkper Books with other currencies, synchronized.
 
 It works by mirroring transactions from one book to other books, automatically applying updated conversion rates.
 
-![Exchange Agent](https://docs.google.com/drawings/d/e/2PACX-1vTAW6vvlAPHup58L5mwdiQnUVoSxHbf890GJiHYVkLmzhAc0kaGsb8B721vc1pRFVXp2OWx8rBiACMR/pub?w=949&h=436)
+![Exchange Bot](https://docs.google.com/drawings/d/e/2PACX-1vTAW6vvlAPHup58L5mwdiQnUVoSxHbf890GJiHYVkLmzhAc0kaGsb8B721vc1pRFVXp2OWx8rBiACMR/pub?w=949&h=436)
 
 
-The Bkper Exchange Agent must be installed on all books in a Collection. For every transaction in a book within the Collection, it records another transaction on other Books with different currencies in the Collection. 
+The Bkper Exchange Bot must be installed on all books in a Collection. For every transaction in a book within the Collection, it records another transaction on other Books with different currencies in the Collection. 
 
-The Bkper Exchange Agent installation adds a menu item to books to record gains and loss transactions, based on exchange rates variation.
+The Bkper Exchange Bot installation adds a menu item to books to record gains and loss transactions, based on exchange rates variation.
 
-![Exchange Agent Menu](https://docs.google.com/drawings/d/e/2PACX-1vSA-k4mJouFSGPUc8wH2J6o67qKs7jxYkk4VygH-6WA5uwdPAw5k5Jq42MhIvznj0EszPrAlIU_pHXm/pub?w=1200&h=400)
+![Exchange Bot Menu](https://docs.google.com/drawings/d/e/2PACX-1vSA-k4mJouFSGPUc8wH2J6o67qKs7jxYkk4VygH-6WA5uwdPAw5k5Jq42MhIvznj0EszPrAlIU_pHXm/pub?w=1200&h=400)
 
-The Bkper Exchange Agent default exchange rates are read at the moment of the gain/loss update from [Open Exchange Rates](https://openexchangerates.org/) Any other exchange rate source url can be used.
+The Bkper Exchange Bot default exchange rates are read at the moment of the gain/loss update from [Open Exchange Rates](https://openexchangerates.org/) Any other exchange rate source url can be used.
 
 
 
-The chart of account (CoA) is synchronized on books in a Collection by the Bkper Exchange Agent.
+The chart of account (CoA) is synchronized on books in a Collection by the Bkper Exchange Bot.
 
 
 
 ## Configuration
 
-The Exchange Agent works by listening for TRANSACTION_CHECKED events in your book, applying exchange rates from the an **exchange rates endpoint** and recording another transaction to the associated books:
+The Exchange Bot works by listening for TRANSACTION_CHECKED events in your book, applying exchange rates from the an **exchange rates endpoint** and recording another transaction to the associated books:
 
-![Exchange Agent Flow](https://docs.google.com/drawings/d/e/2PACX-1vSgg3HznU8deJsYNuZx57XvOusDTg-t6MwNIBpF2RuJRMzz-eFY4LhbCP1giOaO1mR3pD3K1gvEIz5i/pub?w=2880&h=1248)
+![Exchange Bot Flow](https://docs.google.com/drawings/d/e/2PACX-1vSgg3HznU8deJsYNuZx57XvOusDTg-t6MwNIBpF2RuJRMzz-eFY4LhbCP1giOaO1mR3pD3K1gvEIz5i/pub?w=2880&h=1248)
 
 The books are associated by its [Collection](https://help.bkper.com/en/articles/4208937-work-with-multiple-books), so a transaction in one book is mirrored on all books of the Collection.
 
 ### Book Properties
 
-In order to proper setup the Exchange Agent on your books, some book properties should be set:
+In order to proper setup the Exchange Bot on your books, some book properties should be set:
 
 - ```exc_code```: Required - The book (currency) exchange code.
 - ```exc_rates_url```: Optional - The rates endpoint url to use. Default: [Open Exchange Rates](https://openexchangerates.org/)
@@ -52,7 +52,7 @@ exc_code: USD
 
 As the rates changes over time, the balances on accounts with different currencies than the book should be adjusted and by gain/loss transactions. The transactions are triggered by an item on menu:
 
-![Exchange Agent Menu](https://docs.google.com/drawings/d/e/2PACX-1vSA-k4mJouFSGPUc8wH2J6o67qKs7jxYkk4VygH-6WA5uwdPAw5k5Jq42MhIvznj0EszPrAlIU_pHXm/pub?w=1200&h=400)
+![Exchange Bot Menu](https://docs.google.com/drawings/d/e/2PACX-1vSA-k4mJouFSGPUc8wH2J6o67qKs7jxYkk4VygH-6WA5uwdPAw5k5Jq42MhIvznj0EszPrAlIU_pHXm/pub?w=1200&h=400)
 
 The accounts will be selected by matching the **group names** with exc_code from associated books, or by the ```exc_code``` property set on Groups.
 
