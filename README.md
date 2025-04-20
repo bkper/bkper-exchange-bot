@@ -1,4 +1,4 @@
-The Bkper Exchange Bot keeps balance values, in different Bkper Books with other currencies, synchronized.
+The Exchange Bot automatically convert transaction amounts between books using historical exchange rates, tracking gains and losses due to currency fluctuations, enabling multi-currency accounting and consolidated financial reporting.
 
 It works by mirroring transactions from one book to other books, automatically applying updated conversion rates.
 
