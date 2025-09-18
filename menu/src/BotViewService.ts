@@ -58,7 +58,7 @@ namespace BotViewService {
     if (!BotService.canUserEditBook(book)) {
       template.basePermissionGranted = false;
       template.permissionError = `User needs EDITOR or OWNER permission in ${book.getName()} book`;
-      return template.evaluate().setTitle('Exchange Bot');
+      return template.evaluate().setTitle('Exchange Bot').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
     } else {
       template.basePermissionGranted = true;
     }
@@ -91,7 +91,7 @@ namespace BotViewService {
       template.permissionGranted = true;
     }
 
-    return template.evaluate().setTitle('Exchange Bot');
+    return template.evaluate().setTitle('Exchange Bot').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
   }
 
   export function loadRates(bookId: string, date: string): ExchangeRates {
