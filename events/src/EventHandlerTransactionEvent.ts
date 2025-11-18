@@ -49,7 +49,7 @@ export abstract class EventHandlerTransactionEvent extends EventHandlerTransacti
 
     let newTransaction = new Transaction(connectedBook)
       .setDate(transaction.date)
-      .setProperties(transaction.properties)
+      .setProperties(this.filterVisibleProperties(transaction.properties))
       .setAmount(amountDescription.amount)
       .setCreditAccount(creditDebitAccounts[0])
       .setDebitAccount(creditDebitAccounts[1])
@@ -97,14 +97,14 @@ export abstract class EventHandlerTransactionEvent extends EventHandlerTransacti
     let newConnectedAccount = new Account(connectedBook)
       .setName(baseAccount.name)
       .setType(baseAccount.type as AccountType)
-      .setProperties(baseAccount.properties);
+      .setProperties(this.filterVisibleProperties(baseAccount.properties));
     const baseGroups = baseAccount.groups;
     if (baseGroups) {
       for (const baseGroup of baseGroups) {
         let connectedGroup = await connectedBook.getGroup(baseGroup.name);
         if (connectedGroup == null) {
           let newGroup = new Group(connectedBook);
-          connectedGroup = await newGroup.setName(baseGroup.name).setProperties(baseGroup.properties).create();
+          connectedGroup = await newGroup.setName(baseGroup.name).setProperties(this.filterVisibleProperties(baseGroup.properties)).create();
         }
         newConnectedAccount.addGroup(connectedGroup);
       }

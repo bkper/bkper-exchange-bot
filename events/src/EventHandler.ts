@@ -91,6 +91,18 @@ export abstract class EventHandler {
     return `<a href='https://app.bkper.com/b/#transactions:bookId=${book.getId()}'>${book.getName()}</a>`;
   }
 
+  protected filterVisibleProperties(properties: { [key: string]: string }): { [key: string]: string } {
+    if (!properties) return properties;
+    
+    const filtered: { [key: string]: string } = {};
+    for (const [key, value] of Object.entries(properties)) {
+      if (!key.endsWith('_')) {
+        filtered[key] = value;
+      }
+    }
+    return filtered;
+  }
+
   private async preloadRatesIfNeeded(eventBook: Book, event: bkper.Event, connectedBooks: Book[]): Promise<void> {
     // No need to load rates if event book is the only base book in the collection
     if (this.isTheOnlyBaseBookInCollection(eventBook, connectedBooks)) {

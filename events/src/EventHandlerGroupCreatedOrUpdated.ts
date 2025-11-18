@@ -9,7 +9,7 @@ export class EventHandlerGroupCreatedOrUpdated extends EventHandlerGroup {
     .setName(baseGroup.name)
     .setParent(parentGroup)
     .setHidden(baseGroup.hidden)
-    .setProperties(baseGroup.properties)
+    .setProperties(this.filterVisibleProperties(baseGroup.properties))
     .deleteProperty(CHILD_BOOK_ID_PROP)
     .create();
     let bookAnchor = super.buildBookAnchor(connectedBook);
@@ -23,7 +23,7 @@ export class EventHandlerGroupCreatedOrUpdated extends EventHandlerGroup {
     .setName(baseGroup.name)
     .setParent(parentGroup)
     .setHidden(baseGroup.hidden)
-    .setProperties(baseGroup.properties)
+    .setProperties(this.filterVisibleProperties(baseGroup.properties))
     .setProperty(CHILD_BOOK_ID_PROP, connectedChildBookId)
     .update();
     let bookAnchor = super.buildBookAnchor(connectedBook);

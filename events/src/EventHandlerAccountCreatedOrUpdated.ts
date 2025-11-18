@@ -32,7 +32,7 @@ export class EventHandlerAccountCreatedOrUpdated extends EventHandlerAccount {
     connectedAccount.setGroups(baseAccount.groups);
     connectedAccount.setName(baseAccount.name)
       .setType(baseAccount.type as AccountType)
-      .setProperties(baseAccount.properties)
+      .setProperties(this.filterVisibleProperties(baseAccount.properties))
       .setArchived(baseAccount.archived);
   }
 

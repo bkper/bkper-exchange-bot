@@ -84,7 +84,7 @@ export class EventHandlerTransactionUpdated extends EventHandlerTransactionEvent
     connectedTransaction.setAmount(amountDescription.amount)
       .setDescription(amountDescription.description)
       .setDate(transaction.date)
-      .setProperties(transaction.properties)
+      .setProperties(this.filterVisibleProperties(transaction.properties))
       .setCreditAccount(connectedCreditAccount)
       .setDebitAccount(connectedDebitAccount)
       .setChecked(transaction.checked)
