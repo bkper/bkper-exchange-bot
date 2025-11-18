@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@google/clasp": "^2.4.2",
-    "bkper": "^3.3.2",
+    "bkper": "^3.6.1",
     "npm-run-all": "^4.1.5"
   }
 }
