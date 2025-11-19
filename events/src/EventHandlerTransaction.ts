@@ -74,8 +74,8 @@ export abstract class EventHandlerTransaction extends EventHandler {
     protected abstract connectedTransactionFound(baseBook: Book, connectedBook: Book, transaction: bkper.Transaction, connectedTransaction: Transaction): Promise<string>;
 
     protected async buildExcLog(baseBook: Book, connectedBook: Book, transaction: bkper.Transaction, amountDescription: AmountDescription): Promise<ExcLogEntry[]> {
-        const creditAccountCode = await getAccountExcCode(baseBook, transaction.creditAccount);
-        const debitAccountCode = await getAccountExcCode(baseBook, transaction.debitAccount);
+        const creditAccountCode = await getAccountExcCode(this.context.bkper, baseBook, transaction.creditAccount);
+        const debitAccountCode = await getAccountExcCode(this.context.bkper, baseBook, transaction.debitAccount);
         let connectedCode = getBaseCode(connectedBook);
         let excLogEntries: ExcLogEntry[] = [];
         if (creditAccountCode && debitAccountCode) {

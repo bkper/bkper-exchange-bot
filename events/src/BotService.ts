@@ -48,7 +48,7 @@ export function getRatesEndpointConfig(book: Book, transaction: bkper.Transactio
   }
 }
 
-export async function getConnectedBooks(book: Book): Promise<Array<Book>> {
+export async function getConnectedBooks(bkper: Bkper, book: Book): Promise<Array<Book>> {
   if (book.getProperties() == null) {
     return new Array<Book>();
   }
@@ -57,7 +57,7 @@ export async function getConnectedBooks(book: Book): Promise<Array<Book>> {
   //deprecated
   for (const key in book.getProperties()) {
     if ((key.startsWith('exc')) && key.endsWith('_book')) {
-      books.push(await Bkper.getBook(book.getProperties()[key]));
+      books.push(await bkper.getBook(book.getProperties()[key]));
     }
   }
 
@@ -67,7 +67,7 @@ export async function getConnectedBooks(book: Book): Promise<Array<Book>> {
     var bookIds = exc_books.split(/[ ,]+/);
     for (var bookId of bookIds) {
       if (bookId != null && bookId.trim().length > 10) {
-        books.push(await Bkper.getBook(bookId));
+        books.push(await bkper.getBook(bookId));
       }
     }
   }
@@ -109,11 +109,11 @@ export function getBaseCode(book: Book): string {
   return book.getProperty(EXC_CODE_PROP, 'exchange_code');
 }
 
-export async function getAccountExcCode(book: Book, account: bkper.Account): Promise<string> {
+export async function getAccountExcCode(bkper: Bkper, book: Book, account: bkper.Account): Promise<string> {
   let groups = account.groups;
   if (groups) {
     for (const group of groups) {
-      let excCode = await getGroupExcCode(book, group);
+      let excCode = await getGroupExcCode(bkper, book, group);
       if (excCode) {
         return excCode;
       }
@@ -122,8 +122,8 @@ export async function getAccountExcCode(book: Book, account: bkper.Account): Pro
   return undefined;
 }
 
-async function getGroupExcCode(book: Book, group: bkper.Group): Promise<string> {
-  let exchangeBooks = await getConnectedBooks(book);
+async function getGroupExcCode(bkper: Bkper, book: Book, group: bkper.Group): Promise<string> {
+  let exchangeBooks = await getConnectedBooks(bkper, book);
   for (const exchangeBook of exchangeBooks) {
     let bookExcCode = getBaseCode(exchangeBook);
     if (group.name == bookExcCode) {

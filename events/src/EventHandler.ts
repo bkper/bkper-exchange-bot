@@ -1,15 +1,22 @@
 import { Book } from "bkper-js";
+import { AppContext } from "./AppContext.js";
 import { getBaseCode, getConnectedBooks, getRatesEndpointConfig, hasBaseBookInCollection, isBaseBook } from "./BotService.js";
 import { EXC_ON_CHECK_PROP, EXC_CODE_PROP } from "./constants.js";
 import { getRates } from "./exchange-service.js";
 
 export abstract class EventHandler {
 
+    protected context: AppContext;
+
+    constructor(context: AppContext) {
+        this.context = context;
+    }
+
     protected abstract processObject(baseBook: Book, connectedBook: Book, event: bkper.Event): Promise<string>;
 
     async handleEvent(event: bkper.Event): Promise<string[] | string | boolean> {
 
-        const eventBook = new Book(event.book);
+        const eventBook = new Book(event.book, this.context.bkper.getConfig());
         const eventBookExcCode = getBaseCode(eventBook);
 
         if (eventBookExcCode == null || eventBookExcCode == '') {
@@ -27,7 +34,7 @@ export abstract class EventHandler {
             }
         }
 
-        let allConnectedBooks = await getConnectedBooks(eventBook);
+        let allConnectedBooks = await getConnectedBooks(this.context.bkper, eventBook);
 
         // No connected books
         if (allConnectedBooks == null || allConnectedBooks.length == 0) {
