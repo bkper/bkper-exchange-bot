@@ -1,15 +1,17 @@
 import { Book } from "bkper-js";
 import { AppContext } from "./AppContext.js";
-import { getBaseCode, getConnectedBooks, getRatesEndpointConfig, hasBaseBookInCollection, isBaseBook } from "./BotService.js";
+import { BotService } from "./BotService.js";
 import { EXC_ON_CHECK_PROP, EXC_CODE_PROP } from "./constants.js";
 import { getRates } from "./exchange-service.js";
 
 export abstract class EventHandler {
 
     protected context: AppContext;
+    protected botService: BotService;
 
     constructor(context: AppContext) {
         this.context = context;
+        this.botService = new BotService(context);
     }
 
     protected abstract processObject(baseBook: Book, connectedBook: Book, event: bkper.Event): Promise<string>;
@@ -17,7 +19,7 @@ export abstract class EventHandler {
     async handleEvent(event: bkper.Event): Promise<string[] | string | boolean> {
 
         const eventBook = new Book(event.book, this.context.bkper.getConfig());
-        const eventBookExcCode = getBaseCode(eventBook);
+        const eventBookExcCode = this.botService.getBaseCode(eventBook);
 
         if (eventBookExcCode == null || eventBookExcCode == '') {
             return `Please set the "${EXC_CODE_PROP}" property of this book.`;
@@ -34,7 +36,7 @@ export abstract class EventHandler {
             }
         }
 
-        let allConnectedBooks = await getConnectedBooks(this.context.bkper, eventBook);
+        let allConnectedBooks = await this.botService.getConnectedBooks(eventBook);
 
         // No connected books
         if (allConnectedBooks == null || allConnectedBooks.length == 0) {
@@ -65,7 +67,7 @@ export abstract class EventHandler {
                 if (connectedBook.getId() == eventBook.getId()) {
                     continue;
                 }
-                let connectedCode = getBaseCode(connectedBook);
+                let connectedCode = this.botService.getBaseCode(connectedBook);
                 if (connectedCode != null && connectedCode != "") {
                     let response = this.processObject(eventBook, connectedBook, event);
                     if (response) {
@@ -107,13 +109,13 @@ export abstract class EventHandler {
         }
         let operation = event.data.object as bkper.TransactionOperation;
         let transaction = operation.transaction;
-        const ratesEndpointConfig = getRatesEndpointConfig(eventBook, transaction);
+        const ratesEndpointConfig = this.botService.getRatesEndpointConfig(eventBook, transaction);
         await getRates(ratesEndpointConfig.url); // Call to put rates on cache
     }
 
     private isTheOnlyBaseBookInCollection(eventBook: Book, connectedBooks: Book[]): boolean {
-        if (hasBaseBookInCollection(eventBook)) {
-            const baseBooks = connectedBooks.filter(b => isBaseBook(b));
+        if (this.botService.hasBaseBookInCollection(eventBook)) {
+            const baseBooks = connectedBooks.filter(b => this.botService.isBaseBook(b));
             if (baseBooks.length == 1) {
                 const baseBook = baseBooks[0];
                 if (baseBook && baseBook.getId() == eventBook.getId()) {

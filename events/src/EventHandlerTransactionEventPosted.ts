@@ -1,5 +1,4 @@
 import { Account, AccountType, Book, Transaction } from "bkper-js";
-import { getBaseCode } from "./BotService.js";
 import { EXC_CODE_PROP, EXC_RATE_PROP } from "./constants.js";
 import { EventHandlerTransactionEvent } from './EventHandlerTransactionEvent.js';
 

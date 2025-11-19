@@ -1,5 +1,4 @@
 import { Amount, Book, Transaction } from "bkper-js";
-import { extractAmountDescription_, getBaseCode, getRatesEndpointConfig, hasBaseBookInCollection, isBaseBook, getAccountExcCode, match } from "./BotService.js";
 import { EXC_AMOUNT_PROP } from "./constants.js";
 import { EventHandler } from "./EventHandler.js";
 import { ExchangeRates } from "./ExchangeRates.js";
@@ -34,11 +33,11 @@ export abstract class EventHandlerTransaction extends EventHandler {
             return null;
         }
 
-        let connectedCode = getBaseCode(connectedBook);
+        let connectedCode = this.botService.getBaseCode(connectedBook);
 
         let ret: Promise<string> = null;
 
-        if (isBaseBook(connectedBook) || !hasBaseBookInCollection(baseBook) || match(baseBook, connectedCode, transaction)) {
+        if (this.botService.isBaseBook(connectedBook) || !this.botService.hasBaseBookInCollection(baseBook) || this.botService.match(baseBook, connectedCode, transaction)) {
             if (connectedCode != null && connectedCode != '') {
                 let connectedTransaction = (await connectedBook.listTransactions(this.getTransactionQuery(transaction))).getFirst();
                 if (connectedTransaction) {
@@ -62,9 +61,9 @@ export abstract class EventHandlerTransaction extends EventHandler {
 
     protected async extractAmountDescription_(baseBook: Book, connectedBook: Book, baseCode: string, connectedCode: string, transaction: bkper.Transaction): Promise<AmountDescription> {
 
-        let ratesEndpointConfig = getRatesEndpointConfig(connectedBook, transaction);
+        let ratesEndpointConfig = this.botService.getRatesEndpointConfig(connectedBook, transaction);
 
-        return await extractAmountDescription_(baseBook, connectedBook, baseCode, connectedCode, transaction, ratesEndpointConfig.url)
+        return await this.botService.extractAmountDescription_(baseBook, connectedBook, baseCode, connectedCode, transaction, ratesEndpointConfig.url)
     }
 
     protected abstract getTransactionQuery(transaction: bkper.Transaction): string;
@@ -74,9 +73,9 @@ export abstract class EventHandlerTransaction extends EventHandler {
     protected abstract connectedTransactionFound(baseBook: Book, connectedBook: Book, transaction: bkper.Transaction, connectedTransaction: Transaction): Promise<string>;
 
     protected async buildExcLog(baseBook: Book, connectedBook: Book, transaction: bkper.Transaction, amountDescription: AmountDescription): Promise<ExcLogEntry[]> {
-        const creditAccountCode = await getAccountExcCode(this.context.bkper, baseBook, transaction.creditAccount);
-        const debitAccountCode = await getAccountExcCode(this.context.bkper, baseBook, transaction.debitAccount);
-        let connectedCode = getBaseCode(connectedBook);
+        const creditAccountCode = await this.botService.getAccountExcCode(baseBook, transaction.creditAccount);
+        const debitAccountCode = await this.botService.getAccountExcCode(baseBook, transaction.debitAccount);
+        let connectedCode = this.botService.getBaseCode(connectedBook);
         let excLogEntries: ExcLogEntry[] = [];
         if (creditAccountCode && debitAccountCode) {
             if (connectedCode != creditAccountCode && connectedCode != debitAccountCode && creditAccountCode != debitAccountCode) {

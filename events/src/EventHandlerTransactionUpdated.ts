@@ -1,5 +1,4 @@
 import { Account, Book, Transaction } from "bkper-js";
-import { getBaseCode } from "./BotService.js";
 import { EXC_CODE_PROP, EXC_RATE_PROP, EXC_LOG_PROP, EXC_AMOUNT_PROP } from "./constants.js";
 import { AmountDescription, EventHandlerTransaction } from "./EventHandlerTransaction.js";
 import { EventHandlerTransactionEvent } from './EventHandlerTransactionEvent.js';
@@ -28,8 +27,8 @@ export class EventHandlerTransactionUpdated extends EventHandlerTransactionEvent
 
         let baseCreditAccount = await baseBook.getAccount(baseTransaction.creditAccount.id);
         let baseDebitAccount = await baseBook.getAccount(baseTransaction.debitAccount.id);
-        let baseCode = getBaseCode(baseBook);
-        let connectedCode = getBaseCode(connectedBook);
+        let baseCode = this.botService.getBaseCode(baseBook);
+        let connectedCode = this.botService.getBaseCode(connectedBook);
 
         let connectedCreditAccount = await connectedBook.getAccount(baseCreditAccount.getName());
         if (connectedCreditAccount == null) {

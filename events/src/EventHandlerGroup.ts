@@ -1,11 +1,10 @@
 import { Book, Group } from "bkper-js";
-import { getBaseCode } from "./BotService.js";
 import { EventHandler } from "./EventHandler.js";
 
 export abstract class EventHandlerGroup extends EventHandler {
 
   protected async processObject(baseBook: Book, connectedBook: Book, event: bkper.Event): Promise<string> {
-    let connectedCode = getBaseCode(connectedBook);
+    let connectedCode = this.botService.getBaseCode(connectedBook);
     let group = event.data.object as bkper.Group;
 
     if (connectedCode != null && connectedCode != '') {

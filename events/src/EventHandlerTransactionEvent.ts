@@ -1,5 +1,4 @@
 import { Account, AccountType, Book, Transaction, Group } from "bkper-js";
-import { getBaseCode } from "./BotService.js";
 import { EXC_CODE_PROP, EXC_RATE_PROP, EXC_LOG_PROP, EXC_AMOUNT_PROP } from "./constants.js";
 import { EventHandlerTransaction } from "./EventHandlerTransaction.js";
 
@@ -11,10 +10,10 @@ export abstract class EventHandlerTransactionEvent extends EventHandlerTransacti
 
     protected async mirrorTransaction(baseBook: Book, connectedBook: Book, transaction: bkper.Transaction): Promise<Transaction> {
 
-        let baseCode = getBaseCode(baseBook);
+        let baseCode = this.botService.getBaseCode(baseBook);
         let baseCreditAccount = transaction.creditAccount;
         let baseDebitAccount = transaction.debitAccount;
-        let connectedCode = getBaseCode(connectedBook);
+        let connectedCode = this.botService.getBaseCode(connectedBook);
 
         let connectedCreditDebitAccounts = await Promise.all([connectedBook.getAccount(baseCreditAccount.name), connectedBook.getAccount(baseDebitAccount.name)])
 

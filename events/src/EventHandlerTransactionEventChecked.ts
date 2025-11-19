@@ -1,5 +1,4 @@
 import { Book, Transaction } from "bkper-js";
-import { getBaseCode } from "./BotService.js";
 import { EXC_RATE_PROP, EXC_LOG_PROP } from "./constants.js";
 import { AmountDescription, ExcLogEntry } from "./EventHandlerTransaction.js";
 import { EventHandlerTransactionEvent } from "./EventHandlerTransactionEvent.js";
@@ -15,8 +14,8 @@ export class EventHandlerTransactionChecked extends EventHandlerTransactionEvent
     const timeTag = `Checked found ${Math.random()}`;
     console.time(timeTag);
 
-    let baseCode = getBaseCode(baseBook);
-    let connectedCode = getBaseCode(connectedBook);
+    let baseCode = this.botService.getBaseCode(baseBook);
+    let connectedCode = this.botService.getBaseCode(connectedBook);
 
     let amountDescription = await super.extractAmountDescription_(baseBook, connectedBook, baseCode, connectedCode, transaction);
 

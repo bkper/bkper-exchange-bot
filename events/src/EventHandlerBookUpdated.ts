@@ -1,12 +1,11 @@
 import { Book } from "bkper-js";
-import { getBaseCode } from "./BotService.js";
 import { EXC_ON_CHECK_PROP, EXC_RATES_CACHE_PROP, EXC_RATES_URL_PROP, EXC_AGGREGATE } from "./constants.js";
 import { EventHandler } from "./EventHandler.js";
 
 export class EventHandlerBookUpdated extends EventHandler {
 
   protected async processObject(baseBook: Book, connectedBook: Book, event: bkper.Event): Promise<string> {
-    let connectedCode = getBaseCode(connectedBook);
+    let connectedCode = this.botService.getBaseCode(connectedBook);
 
     let response = ''
 
