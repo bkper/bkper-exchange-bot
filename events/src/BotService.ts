@@ -57,15 +57,16 @@ export class BotService {
   }
 
   async getConnectedBooks(book: Book): Promise<Array<Book>> {
-    if (book.getProperties() == null) {
+    const bookVisibleProperties = book.getVisibleProperties();
+    if (bookVisibleProperties == null) {
       return new Array<Book>();
     }
     let books = new Array<Book>();
 
     //deprecated
-    for (const key in book.getProperties()) {
+    for (const key in bookVisibleProperties) {
       if ((key.startsWith('exc')) && key.endsWith('_book')) {
-        books.push(await this.context.bkper.getBook(book.getProperties()[key]));
+        books.push(await this.context.bkper.getBook(bookVisibleProperties[key]));
       }
     }
 
