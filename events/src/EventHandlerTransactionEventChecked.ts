@@ -2,8 +2,12 @@ import { Book, Transaction } from "bkper-js";
 import { EXC_RATE_PROP, EXC_LOG_PROP } from "./constants.js";
 import { AmountDescription, ExcLogEntry } from "./EventHandlerTransaction.js";
 import { EventHandlerTransactionEvent } from "./EventHandlerTransactionEvent.js";
+import { AppContext } from "./AppContext.js";
 
 export class EventHandlerTransactionChecked extends EventHandlerTransactionEvent {
+  constructor(context: AppContext) {
+    super(context);
+  }
 
   protected getTransactionQuery(transaction: bkper.Transaction): string {
     return `remoteId:${transaction.id}`;

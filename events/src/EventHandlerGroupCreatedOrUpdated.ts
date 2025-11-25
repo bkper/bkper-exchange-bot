@@ -1,8 +1,12 @@
 import { Book, Group } from "bkper-js";
 import { CHILD_BOOK_ID_PROP } from "./constants.js";
 import { EventHandlerGroup } from "./EventHandlerGroup.js";
+import { AppContext } from "./AppContext.js";
 
 export class EventHandlerGroupCreatedOrUpdated extends EventHandlerGroup {
+    constructor(context: AppContext) {
+        super(context);
+    }
     protected async connectedGroupNotFound(baseBook: Book, connectedBook: Book, baseGroup: bkper.Group): Promise<string> {
         let parentGroup = baseGroup.parent ? await connectedBook.getGroup(baseGroup.parent.name) : null;
         let connectedGroup = await new Group(connectedBook)

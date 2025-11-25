@@ -1,5 +1,5 @@
-import { Account, Amount, Book, Group } from "bkper-js";
-import { EXC_AMOUNT_PROP, EXC_BASE_PROP, EXC_CODE_PROP, EXC_RATE_PROP, EXC_RATES_CACHE_PROP, EXC_RATES_URL_PROP, EXC_DATE_PROP } from "./constants.js";
+import { Amount, Book } from "bkper-js";
+import { EXC_AMOUNT_PROP, EXC_BASE_PROP, EXC_CODE_PROP, EXC_RATE_PROP, EXC_RATES_URL_PROP, EXC_DATE_PROP } from "./constants.js";
 import { AmountDescription } from "./EventHandlerTransaction.js";
 import { convert, getRates } from "./exchange-service.js";
 import { ExchangeRates } from "./ExchangeRates.js";

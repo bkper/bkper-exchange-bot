@@ -17,8 +17,6 @@ Bkper.setConfig({
   apiKeyProvider: () => process.env.BKPER_API_KEY,
 })
 
-console.log(process.env.BKPER_API_KEY)
-
 const app = new App();
 let webhookListener;
 

@@ -1,7 +1,11 @@
 import { Account, AccountType, Book } from "bkper-js";
 import { EventHandlerAccount } from "./EventHandlerAccount.js";
+import { AppContext } from "./AppContext.js";
 
 export class EventHandlerAccountCreatedOrUpdated extends EventHandlerAccount {
+    constructor(context: AppContext) {
+        super(context);
+    }
 
     public async connectedAccountNotFound(baseBook: Book, connectedBook: Book, baseAccount: bkper.Account): Promise<string> {
 

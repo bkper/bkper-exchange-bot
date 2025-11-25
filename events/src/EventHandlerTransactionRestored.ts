@@ -1,8 +1,12 @@
 import { Book, Transaction } from "bkper-js";
 import { EventHandlerTransaction } from "./EventHandlerTransaction.js";
+import { AppContext } from "./AppContext.js";
 
 export class EventHandlerTransactionRestored extends EventHandlerTransaction {
-
+  constructor(context: AppContext) {
+    super(context);
+  }
+  
   protected getTransactionQuery(transaction: bkper.Transaction): string {
     return `remoteId:${transaction.id} is:trashed`;
   }

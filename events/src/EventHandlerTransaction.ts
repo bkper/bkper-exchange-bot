@@ -3,6 +3,7 @@ import { EXC_AMOUNT_PROP } from "./constants.js";
 import { EventHandler } from "./EventHandler.js";
 import { ExchangeRates } from "./ExchangeRates.js";
 import { convertBase } from "./exchange-service.js";
+import { AppContext } from "./AppContext.js";
 
 export interface AmountDescription {
     amount: Amount;
@@ -18,6 +19,10 @@ export interface ExcLogEntry {
 }
 
 export abstract class EventHandlerTransaction extends EventHandler {
+
+    constructor(context: AppContext) {
+        super(context);
+    }
 
     async processObject(baseBook: Book, connectedBook: Book, event: bkper.Event): Promise<string> {
 
