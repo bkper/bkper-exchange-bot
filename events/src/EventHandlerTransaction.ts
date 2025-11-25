@@ -2,7 +2,6 @@ import { Amount, Book, Transaction } from "bkper-js";
 import { EXC_AMOUNT_PROP } from "./constants.js";
 import { EventHandler } from "./EventHandler.js";
 import { ExchangeRates } from "./ExchangeRates.js";
-import { convertBase } from "./exchange-service.js";
 import { AppContext } from "./AppContext.js";
 
 export interface AmountDescription {
@@ -117,6 +116,6 @@ export abstract class EventHandlerTransaction extends EventHandler {
                 }
             }
         }
-        return new Amount(convertBase(amountDescription.rates, debitAccountCode).rates[connectedCode]);
+        return new Amount(this.exchangeService.convertBase(amountDescription.rates, debitAccountCode).rates[connectedCode]);
     }
 }

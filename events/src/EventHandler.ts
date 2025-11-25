@@ -2,16 +2,18 @@ import { Book } from "bkper-js";
 import { AppContext } from "./AppContext.js";
 import { BotService } from "./BotService.js";
 import { EXC_ON_CHECK_PROP, EXC_CODE_PROP } from "./constants.js";
-import { getRates } from "./exchange-service.js";
+import { ExchangeService } from "./ExchangeService.js";
 
 export abstract class EventHandler {
 
     protected context: AppContext;
     protected botService: BotService;
+    protected exchangeService: ExchangeService;
 
     constructor(context: AppContext) {
         this.context = context;
         this.botService = new BotService(context);
+        this.exchangeService = new ExchangeService(context);
     }
 
     protected abstract processObject(baseBook: Book, connectedBook: Book, event: bkper.Event): Promise<string>;
@@ -110,7 +112,7 @@ export abstract class EventHandler {
         let operation = event.data.object as bkper.TransactionOperation;
         let transaction = operation.transaction;
         const ratesEndpointConfig = this.botService.getRatesEndpointConfig(eventBook, transaction);
-        await getRates(ratesEndpointConfig.url); // Call to put rates on cache
+        await this.exchangeService.getRates(ratesEndpointConfig.url); // Call to put rates on cache
     }
 
     private isTheOnlyBaseBookInCollection(eventBook: Book, connectedBooks: Book[]): boolean {
