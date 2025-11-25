@@ -33,16 +33,10 @@ function init(req: Request, res: Response): AppContext {
 
     res.setHeader('Content-Type', 'application/json');
 
-    console.log(' ');
-    console.log(`BKPER_API_KEY: ${process.env.BKPER_API_KEY}`);
-    
     const bkper = new Bkper({
         oauthTokenProvider: async () => req.headers['bkper-oauth-token'] as string,
         apiKeyProvider: async () => process.env.BKPER_API_KEY || req.headers['bkper-api-key'] as string
     })
-    
-    console.log(`req.headers['bkper-oauth-token']: ${req.headers['bkper-oauth-token']}`);
-    console.log(' ');
 
     return new AppContext(bkper, process.env);
 
