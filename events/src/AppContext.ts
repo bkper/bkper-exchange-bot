@@ -1,26 +1,13 @@
 import { Bkper } from 'bkper-js';
 
-interface HttpContext {
-    get(key: string): any;
-    set(key: string, value: any): void;
-}
+type Env = Record<string, string | undefined>;
 
 export class AppContext {
-
-    private httpContext: HttpContext;
-
     public bkper: Bkper;
+    public env: Env;
 
-    constructor(httpContext: HttpContext, bkper: Bkper) {
-        this.httpContext = httpContext;
+    constructor(bkper: Bkper, env: Env) {
         this.bkper = bkper;
-    }
-
-    get(key: string): any {
-        return this.httpContext.get(key);
-    }
-
-    set(key: string, value: any): void {
-        this.httpContext.set(key, value);
+        this.env = env;
     }
 }

@@ -3,7 +3,6 @@ import { HttpFunction } from '@google-cloud/functions-framework/build/src/functi
 import { Bkper } from 'bkper-js';
 import { Request, Response } from 'express';
 import express from 'express';
-import httpContext from 'express-http-context';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
@@ -27,7 +26,6 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: resolve(__dirname, '../../.env') });
 
 const app = express();
-app.use(httpContext.middleware);
 app.use('/', handleEvent);
 export const doPost: HttpFunction = app;
 
@@ -46,7 +44,7 @@ function init(req: Request, res: Response): AppContext {
     console.log(`req.headers['bkper-oauth-token']: ${req.headers['bkper-oauth-token']}`);
     console.log(' ');
 
-    return new AppContext(httpContext, bkper);
+    return new AppContext(bkper, process.env);
 
 }
 
