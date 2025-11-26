@@ -76,15 +76,15 @@ namespace BotService {
   }
 
   export function getConnectedBooks(book: Bkper.Book): Set<Bkper.Book> {
-    if (book.getProperties() == null) {
+    if (book.getVisibleProperties() == null) {
       return new Set<Bkper.Book>();
     }
     let books = new Set<Bkper.Book>();
 
     //deprecated
-    for (const key in book.getProperties()) {
+    for (const key in book.getVisibleProperties()) {
       if ((key.startsWith('exc')) && key.endsWith('_book')) {
-        books.add(BkperApp.getBook(book.getProperties()[key]));
+        books.add(BkperApp.getBook(book.getVisibleProperties()[key]));
       }
     }
 
