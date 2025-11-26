@@ -23,7 +23,10 @@
   },
   "devDependencies": {
     "@bkper/bkper-api-types": "^5.9.0",
-    "@bkper/bkper-gs-types": "^3.34.5",
+    "@bkper/bkper-gs-types": "^3.38.2",
     "@google/clasp": "^2.3.0"
+  },
+  "dependencies": {
+    "@types/google-apps-script": "^2.0.8"
   }
 }
