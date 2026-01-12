@@ -40,7 +40,8 @@ function init(req: Request, res: Response): AppContext {
 
     const bkper = new Bkper({
         oauthTokenProvider: async () => req.headers['bkper-oauth-token'] as string,
-        apiKeyProvider: async () => apiKey
+        apiKeyProvider: async () => apiKey,
+        agentIdProvider: async () => req.headers['bkper-agent-id'] as string
     })
 
     return new AppContext(bkper, process.env);

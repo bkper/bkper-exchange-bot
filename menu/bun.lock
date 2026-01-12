@@ -1,11 +1,15 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "exchange-bot-menu",
+      "dependencies": {
+        "@types/google-apps-script": "^2.0.8",
+      },
       "devDependencies": {
         "@bkper/bkper-api-types": "^5.9.0",
-        "@bkper/bkper-gs-types": "^3.34.5",
+        "@bkper/bkper-gs-types": "^3.42.0",
         "@google/clasp": "^2.3.0",
       },
     },
@@ -17,7 +21,7 @@
 
     "@bkper/bkper-api-types": ["@bkper/bkper-api-types@5.17.1", "", {}, "sha512-8PdEgCRtGFyGsCa0lNL+2SlmbsXLN/o1MntaYSYskUPh7CMm/EF9nZY+rjpz29wIlBF+KO8ic9mtOVc5m0D4Dw=="],
 
-    "@bkper/bkper-gs-types": ["@bkper/bkper-gs-types@3.36.0", "", { "dependencies": { "@types/google-apps-script": "*" } }, "sha512-XabhJ4j+Yu9NQUG7HlYu1ImqujzowoNSjXv3z6bGpkVqkHAAoC43yp0ExDZf0LU2qItRVfWEJAoIs2nH+LsTYQ=="],
+    "@bkper/bkper-gs-types": ["@bkper/bkper-gs-types@3.42.0", "", { "dependencies": { "@types/google-apps-script": "*" } }, "sha512-BtkFpH+ck4ljUaKi1nMbRQ0kZ02TAIHRQ+HCRuAKN4ZMMfcKmpuu6CV/qu3Q/ap5gU4OXRAhCUfAM7nEuB0jRA=="],
 
     "@google/clasp": ["@google/clasp@2.5.0", "", { "dependencies": { "@sindresorhus/is": "^4.0.1", "chalk": "^4.1.2", "chokidar": "^3.5.2", "cli-truncate": "^3.0.0", "commander": "^8.1.0", "debounce": "^1.2.1", "dotf": "^2.0.2", "find-up": "^6.0.0", "fs-extra": "^10.0.0", "fuzzy": "^0.1.3", "gaxios": "^4.2.1", "google-auth-library": "^7.6.2", "googleapis": "^84.0.0", "inquirer": "^8.1.2", "inquirer-autocomplete-prompt-ipt": "^2.0.0", "is-reachable": "^5.0.0", "log-symbols": "^5.0.0", "loud-rejection": "^2.2.0", "make-dir": "^3.1.0", "multimatch": "^5.0.0", "normalize-newline": "^4.1.0", "open": "^8.2.1", "ora": "^6.0.0", "p-map": "^5.1.0", "read-pkg-up": "^8.0.0", "recursive-readdir": "^2.2.2", "server-destroy": "^1.0.1", "split-lines": "^3.0.0", "strip-bom": "^5.0.0", "ts2gas": "^4.2.0", "typescript": "^4.4.2" }, "bin": { "clasp": "build/src/index.js" } }, "sha512-HkZnUP5UibGEYXpk89HR24pFctb9VBlrpjCrU6sjepkQOtpr/Y9rrSP3N7EVrqUDg4/JQmmPQ8Z2ybN4XtdOxg=="],
 
@@ -27,7 +31,7 @@
 
     "@types/cacheable-request": ["@types/cacheable-request@6.0.3", "", { "dependencies": { "@types/http-cache-semantics": "*", "@types/keyv": "^3.1.4", "@types/node": "*", "@types/responselike": "^1.0.0" } }, "sha512-IQ3EbTzGxIigb1I3qPZc1rWJnH0BmSKv5QYTalEwweFvyBDLSAe24zP0le/hyi7ecGfZVlIVAg4BZqb8WBwKqw=="],
 
-    "@types/google-apps-script": ["@types/google-apps-script@1.0.97", "", {}, "sha512-T8hpQ4Yi7AUvd4fnzHfmo0joGG0j1GUC8TywvRtnKgTAv0vU/DXy4nNgw4VfcOD9ZDdJc0rGoZvWhHORipzFNQ=="],
+    "@types/google-apps-script": ["@types/google-apps-script@2.0.8", "", {}, "sha512-mGPmzzdgBu1DlwrjOhFQ8u0se6AF/z4OpaTzOGwNKxwXZjE7J+IssfE3oL24j/S/p6aFiSTIptHZvbyqeZD8vA=="],
 
     "@types/http-cache-semantics": ["@types/http-cache-semantics@4.0.4", "", {}, "sha512-1m0bIFVc7eJWyve9S0RnuRgcQqF/Xd5QsUZAZeQFr1Q3/p9JWoQQEqmVy+DPTNpGXwhgIetAoYF8JSc33q29QA=="],
 
