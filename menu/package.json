@@ -1,6 +1,6 @@
 {
   "name": "exchange-bot-menu",
-  "version": "1.2.14",
+  "version": "1.2.15",
   "license": "MIT",
   "scripts": {
     "login": "clasp login",
@@ -24,7 +24,8 @@
   "devDependencies": {
     "@bkper/bkper-api-types": "^5.9.0",
     "@bkper/bkper-gs-types": "^3.42.0",
-    "@google/clasp": "^2.3.0"
+    "@google/clasp": "^2.3.0",
+    "yarn": "^1.22.22"
   },
   "dependencies": {
     "@types/google-apps-script": "^2.0.8"
