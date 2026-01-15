@@ -12,9 +12,10 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 dotenv.config({path:`${__dirname}/../.env`})
 process.env.NODE_ENV='development';
 
+const apiKey = process.env.BKPER_API_KEY;
 Bkper.setConfig({
   oauthTokenProvider: () => getOAuthToken(),
-  apiKeyProvider: () => process.env.BKPER_API_KEY,
+  apiKeyProvider: apiKey ? () => apiKey : undefined,
 })
 
 const app = new App();

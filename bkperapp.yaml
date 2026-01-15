@@ -10,6 +10,7 @@ ownerWebsite: https://bkper.com
 repoUrl: https://github.com/bkper/exchange-bot
 repoPrivate: false
 deprecated: false
+developers: '*@bkper.com'
 scriptId: 1KPU60slDZBVslJdt9EnKx-3irpgXfdai30-g0cdyuSaILvHRfYBLTnVu
 menuUrl: https://script.google.com/macros/s/AKfycbxz1Fl1A_KpvAtWLSXtGh1oRaFdWibPweoJfa3yYrFRAAC6gRM/exec?bookId=${book.id}
 menuUrlDev: https://script.google.com/a/bkper.com/macros/s/AKfycbwg42np5A-niYBI7Qq2yxOguhcoNgEkqqe0aRLw628/dev?bookId=${book.id}
